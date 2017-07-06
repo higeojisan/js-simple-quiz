@@ -1,5 +1,6 @@
 var button = document.getElementById('button');
 var quizes = document.getElementById('quizes');
+var form = document.getElementById('quiz_form');
 var questions = [
   {
     question: "What is 10/2?",
@@ -37,5 +38,10 @@ function showquiz() {
 showquiz();
 
 button.addEventListener('click', function() {
-  console.log(document.getElementsByName('quiz_1'));
+  // 答え合わせ
+  // 答えの取得
+  for (var i = 0; i < questions.length; i++) {
+    var userAnswer = (document.querySelector('input[name=quiz_'+i+']:checked') || {}).value;
+    console.log(userAnswer);
+  }
 });
