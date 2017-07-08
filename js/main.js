@@ -1,6 +1,7 @@
 var button = document.getElementById('button');
 var quizes = document.getElementById('quizes');
 var form = document.getElementById('quiz_form');
+var result = document.getElementById('result');
 var questions = [
   {
     question: "What is 10/2?",
@@ -40,8 +41,15 @@ showquiz();
 button.addEventListener('click', function() {
   // 答え合わせ
   // 答えの取得
+  var correctAnswers_num = 0;
   for (var i = 0; i < questions.length; i++) {
     var userAnswer = (document.querySelector('input[name=quiz_'+i+']:checked') || {}).value;
-    console.log(userAnswer);
+    var correctAnswer = questions[i].correctAnswer;
+    if (userAnswer == correctAnswer) {
+      correctAnswers_num++;
+    }
   }
+  // 結果表示
+  var resultText = questions.length + "問中" + correctAnswers_num + "問正解";
+  result.innerHTML = resultText;
 });
