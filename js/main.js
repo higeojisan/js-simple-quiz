@@ -26,11 +26,11 @@ var questions = [
 function showquiz() {
   var outputs = "";
   for (var i = 0; i < questions.length; i++) {
-    var output = "<li><p>" + questions[i].question + "</p>";
+    var output = "<div class='answer'><li><p>" + questions[i].question + "</p>";
     for (letter in questions[i].answers) {
         output += '<input type="radio" name="quiz_' + i + '" value="' + letter + '">' + letter + ": " + questions[i].answers[letter];
     }
-    output += "</li>";
+    output += "</li></div>";
     outputs += output;
   }
   quizes.innerHTML = outputs;
@@ -41,12 +41,18 @@ showquiz();
 button.addEventListener('click', function() {
   // 答え合わせ
   // 答えの取得
+  var answersContainers = quizes.querySelectorAll('.answer');
   var correctAnswers_num = 0;
   for (var i = 0; i < questions.length; i++) {
     var userAnswer = (document.querySelector('input[name=quiz_'+i+']:checked') || {}).value;
     var correctAnswer = questions[i].correctAnswer;
     if (userAnswer == correctAnswer) {
       correctAnswers_num++;
+      // 色の変更
+      answersContainers[i].style.color = "green";
+    } else {
+      // 色の変更
+      answersContainers[i].style.color = "red";
     }
   }
   // 結果表示
